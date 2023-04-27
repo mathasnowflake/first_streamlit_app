@@ -55,5 +55,5 @@ streamlit.dataframe(my_data_rows)
 
 
 
-title = streamlit.text_input('Movie title', 'Life of Brian')
+title = streamlit.text_input('Add fruit', 'Life of Brian')
 streamlit.write('The current movie title is', title)
