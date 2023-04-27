@@ -51,3 +51,6 @@ my_data_rows = my_cur.fetchall()
 streamlit.text("Hello from Snowflake: *JAI SRI RAMA*")
 streamlit.header("The Fruit load list contains:")
 streamlit.dataframe(my_data_rows)
+# Let's put a pick list here so they can pick the fruit they want to include 
+fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_data_rows.index))
+#fruits_to_show = my_fruit_list.loc[fruits_selected]
