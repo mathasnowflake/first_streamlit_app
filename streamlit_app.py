@@ -68,17 +68,28 @@ def get_fruit_load():
 
 if streamlit.button('Get Fruit Load List'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-    my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
+    #my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
     my_data_rows = get_fruit_load()
     streamlit.header("The Fruit load list contains:")
     streamlit.dataframe(my_data_rows)
 # Let's put a pick list here so they can pick the fruit they want to include 
 
-streamlit.stop()
+#streamlit.stop()
 
-title = streamlit.text_input('Add fruit', 'Jackfruit')
-streamlit.write('Thanks for Adding Fruit', title)
-my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+# Allow the end user to add a fruit to the list
+def insert_row_snowflake(new_fruit):
+    with my_cnx.cursor() as my_cur:
+         my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+         return "Thanks for Adding Fruit " + new_fruit
+    
+add_my_fruit = streamlit.text_input('What fruit you want to add?')
+if streamlit.button('Get Fruit Load List'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    back_from_function = insert_row_snowflake(add_my_fruit)
+    streamlit.text(back_from_function)
+   
+
+streamlit.write('Thanks for Adding Fruit', add_my_fruit)
 
 #my_cur.execute("insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values (''title'')")
 #streamlit.text("Thanks for Adding Fruit: *JAI SRI RAMA*")
