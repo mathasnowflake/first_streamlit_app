@@ -61,8 +61,8 @@ streamlit.text("Hello from Snowflake: *JAI SRI RAMA*")
 
 def get_fruit_load():
     with my_cnx.cursor() as my_cur:
-        my_cur.execute("SELECT * from PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
-        my_cur.get_fruit_load()
+         my_cur.execute("SELECT * from PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
+         return my_cur.fetchall()
 
 # Add a button to load the fruit
 
